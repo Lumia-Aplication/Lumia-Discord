@@ -31,17 +31,17 @@ module.exports = {
       if (interaction.customId == 'br') {
         await setLang(interaction.user.id, 'br');
         await interaction.deferUpdate();
-        return message.channel.send({ content: 'Linguagem alterada para Portugues(BR)', ephemeral: true });
+        return message.channel.send({ content: 'Linguagem alterada para Portugues(BR)', Ephemeral: true });
       } else if (interaction.customId == 'en') {
         await setLang(interaction.user.id, 'en');
         await interaction.deferUpdate();
-        return message.channel.send({ content: 'Linguagem alterada para Inglês(EN)', ephemeral: true });
+        return message.channel.send({ content: 'Linguagem alterada para Inglês(EN)', Ephemeral: true });
       }
     });
 
     collector.on('end', () => {
       messageChannel.delete();
-      return message.channel.send({ content: 'Tempo para selecionar acabou', ephemeral: true });
+      return message.channel.send({ content: 'Tempo para selecionar acabou', Ephemeral: true });
     });
   }
 };
