@@ -3,6 +3,7 @@ require('dotenv').config();
 
 const { database } = require('./database');
 require('./alias');
+const i18n = require('./i18n');
 
 const token = process.env.TOKEN;
 
@@ -30,6 +31,7 @@ const client = new Client({
 client.commands = new Collection();
 client.alias = new Collection();
 client.database = database;
+client.t = i18n.t;
 
 require('../handlers/commands')(client);
 require('../handlers/events')(client);
