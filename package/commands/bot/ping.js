@@ -1,7 +1,10 @@
+const constructToEmbed = require('../../_partials/construcEmbed');
+
 module.exports = {
   name: 'ping',
   description: 'Descrição do comando',
   execute(client, message, args, database) {
-    return message.channel.send(`Pong: ${client.ws.ping}`);
+    const embed = constructToEmbed(`🏓 Pong: ${client.ws.ping}!`);
+    return message.channel.send({ embeds: [embed]});
   },
 };
