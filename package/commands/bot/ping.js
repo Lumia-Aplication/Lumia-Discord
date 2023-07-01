@@ -5,6 +5,6 @@ module.exports = {
   description: 'Descrição do comando',
   execute(client, message, args, database) {
     const embed = constructToEmbed(`🏓 Pong: ${client.ws.ping}!`);
-    return message.channel.send({ embeds: [embed]});
+    return message.reply({ embeds: [embed]});
   },
 };
