@@ -30,11 +30,11 @@ module.exports = {
     collector.on('collect', async (interaction) => {
       if (interaction.customId == 'br') {
         await setLang(interaction.user.id, 'br');
-        await message.defferUpdate();
+        await interaction.deferUpdate();
         return message.channel.send({ content: 'Linguagem alterada para Portugues(BR)', ephemeral: true });
       } else if (interaction.customId == 'en') {
         await setLang(interaction.user.id, 'en');
-        await message.defferUpdate();
+        await interaction.deferUpdate();
         return message.channel.send({ content: 'Linguagem alterada para Inglês(EN)', ephemeral: true });
       }
     });
