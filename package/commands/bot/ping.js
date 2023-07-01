@@ -4,7 +4,9 @@ module.exports = {
   name: 'ping',
   description: 'Descrição do comando',
   execute(client, message) {
-    const embed = constructToEmbed(`🏓 Pong: ${client.ws.ping}!`);
+    const { t } = client;
+
+    const embed = constructToEmbed(t('ping', { ping: client.ws.ping }));
     return message.reply({ embeds: [embed]});
   },
 };
