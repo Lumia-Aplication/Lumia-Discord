@@ -2,7 +2,7 @@ const { ButtonStyle } = require('discord.js');
 
 const User = require('@lumia/schemas/user.js');
 
-const { constructToActionRow, constructToButton, constructToEmbed } = require('../../_partials');
+const { constructToActionRow, constructToButton, constructToEmbed, messageDelete } = require('../../_partials');
 const setLang = require('../../_partials/guild/setLang');
 
 module.exports = {
@@ -42,24 +42,30 @@ module.exports = {
     
     const filter = (interaction) => interaction.isButton() && interaction.user.id === message.author.id;
 
-    const collector = messageChannel.createMessageComponentCollector({ filter });
+    const collector = messageChannel.createMessageComponentCollector({ filter, time: 15000 });
 
     collector.on('collect', async (interaction) => {
+      await interaction.deferUpdate();
+      messageDelete(messageChannel, 0);
+
       if (interaction.customId == 'br') {
 
         await setLang(interaction.user.id, 'br');
-        await interaction.deferUpdate();
-        await messageChannel.delete();
 
-        return message.channel.send({ content: t('setlang.successChange', { lng: user.lang, setedLang: t('langBR') })});
+        const messageSuccessBR = await message.channel.send({ content: t('setlang.successChange', { lng: user.lang, setedLang: t('langBR') }), ephemeral: true });
+        messageDelete(messageSuccessBR, 8000);
       } else if (interaction.customId == 'en') {
 
         await setLang(interaction.user.id, 'en');
-        await interaction.deferUpdate();
-        await messageChannel.delete();
 
-        return message.channel.send({ content: t('setlang.successChange', { lng: user.lang, setedLang: t('langEN') })});
+        const messageSuccessEN = await message.channel.send({ content: t('setlang.successChange', { lng: user.lang, setedLang: t('langEN') }), ephemeral: true });
+        messageDelete(messageSuccessEN, 8000);
       }
     });
+
+    collector.on('end', async () => {
+      messageDelete(messageChannel, 0);
+    });
+
   }
 };
