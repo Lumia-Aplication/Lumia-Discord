@@ -1,15 +1,16 @@
-const { ButtonBuilder, ButtonStyle } = require('discord.js');
+const { ButtonBuilder } = require('discord.js');
 
 function constructToButton(buttons) {
 
   const discordButtons = [];
   
   for (const buttonInfo of buttons) {
-    const { customId, label } = buttonInfo;
+    const { customId, label, color, icon } = buttonInfo;
     const button = new ButtonBuilder()
       .setCustomId(customId)
       .setLabel(label)
-      .setStyle(ButtonStyle.Primary);
+      .setEmoji(icon)
+      .setStyle(color);
   
     discordButtons.push(button);
   }

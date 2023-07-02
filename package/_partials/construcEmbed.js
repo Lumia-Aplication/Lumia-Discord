@@ -1,8 +1,12 @@
 const { EmbedBuilder } = require('discord.js');
 
-function constructToEmbed(title = '') {
+function constructToEmbed(user, title = '', description = '', footer = '', color = '#FFB347') {
   return new EmbedBuilder()
-    .setTitle(title);
+    .setThumbnail(user.displayAvatarURL({ format: 'png', dynamic: true, size: 4096 }))
+    .setTitle(title)
+    .setDescription(description || '')
+    .setColor(color || '#FFB347')
+    .setTimestamp();
 }
 
 module.exports = constructToEmbed;
