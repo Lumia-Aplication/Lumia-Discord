@@ -1,9 +1,13 @@
+const User = require('@lumia/schemas/user');
+
 module.exports = {
   name: 'ping',
   description: 'Descrição do comando',
-  execute(client, message) {
+  async execute(client, message) {
     const { t } = client;
 
-    return message.reply({ content: t('ping', { ping: client.ws.ping }) });
+    const user = await User.findOne({ userId: message.author.id });
+
+    return message.reply({ content: t('ping', { ping: client.ws.ping, lng: user.lang }) });
   },
 };
