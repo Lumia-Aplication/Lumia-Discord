@@ -4,7 +4,8 @@ module.exports = {
   ping: '🏓 My ping: {{ping}}!',
   setlang: {
     title: 'Hello {{username}}, select a language for yourself',
-    description: 'Your current language is: **{{userLang}}**\n\nDefault language: **{{langDefault}}**',
-    successChange: 'Language changed to {{setedLang}}!'
+    description: 'Your current language is: **{{userLang}}**\nDefault language: **{{langDefault}}**',
+    successChange: 'Language changed to {{setedLang}}!',
+    expiredTime: 'Your time to select the language has expired!',
   }
 };
