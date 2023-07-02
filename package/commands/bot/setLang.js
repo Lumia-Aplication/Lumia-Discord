@@ -1,7 +1,9 @@
-const { constructToActionRow, constructToButton, constructToEmbed } = require('../../_partials');
 const { ButtonStyle } = require('discord.js');
-const setLang = require('../../_partials/guild/setLang');
+
 const User = require('@lumia/schemas/user.js');
+
+const { constructToActionRow, constructToButton, constructToEmbed } = require('../../_partials');
+const setLang = require('../../_partials/guild/setLang');
 
 module.exports = {
   name: 'setlang',
@@ -31,9 +33,9 @@ module.exports = {
         color: ButtonStyle.Danger
       }
     ];
+
     const button = constructToButton(buttons);
     const row = constructToActionRow(button);
-
     const embed = constructToEmbed(contentEmbed.user, contentEmbed.title, contentEmbed.description);
   
     const messageChannel = await message.reply({ embeds: [embed], components: [row] });
