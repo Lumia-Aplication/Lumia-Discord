@@ -1,7 +1,5 @@
 const { ButtonStyle } = require('discord.js');
 
-const User = require('@lumia/schemas/user.js');
-
 const { constructToActionRow, constructToButton, constructToEmbed, messageDelete } = require('../../_partials');
 const setLang = require('../../_partials/user/setLang');
 
@@ -9,9 +7,9 @@ module.exports = {
   name: 'setlang',
   description: 'Setar uma linguagem ao usuario',
   async execute(client, message) {
-    const { t } = client;
+    const { t, userService } = client;
 
-    const user = await User.findOne({ userId: message.author.id });
+    const user = await userService.findOne({ userId: message.author.id });
 
     const contentEmbed = {
       title: t('setlang.title', { lng: user.lang, username: message.author.username }),
@@ -52,14 +50,12 @@ module.exports = {
 
         await setLang(interaction.user.id, 'br');
 
-        const messageSuccessBR = await message.channel.send({ content: t('setlang.successChange', { lng: user.lang, setedLang: t('langBR') }), ephemeral: true });
-        messageDelete(messageSuccessBR, 8000);
+        await interaction.followUp({ content: t('setlang.successChange', { lng: user.lang, setedLang: t('langBR') }), ephemeral: true });
       } else if (interaction.customId == 'en') {
 
         await setLang(interaction.user.id, 'en');
 
-        const messageSuccessEN = await message.channel.send({ content: t('setlang.successChange', { lng: user.lang, setedLang: t('langEN') }), ephemeral: true });
-        messageDelete(messageSuccessEN, 8000);
+        await interaction.followUp({ content: t('setlang.successChange', { lng: user.lang, setedLang: t('langEN') }), ephemeral: true });
       }
     });
 

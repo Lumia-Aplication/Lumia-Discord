@@ -1,9 +1,14 @@
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
-require('dotenv').config();
+const User = require('../schemas/user');
 
-const { database } = require('./database');
+require('dotenv').config();
+require('./database');
 require('./alias');
+
 const i18n = require('./i18n');
+
+const UserService = require('../models');
+const userService = new UserService(User);
 
 const token = process.env.TOKEN;
 
@@ -30,8 +35,8 @@ const client = new Client({
 
 client.commands = new Collection();
 client.alias = new Collection();
-client.database = database;
 client.t = i18n.t;
+client.userService = userService;
 
 require('../handlers/commands')(client);
 require('../handlers/events')(client);
