@@ -2,7 +2,7 @@ const { EmbedBuilder } = require('discord.js');
 
 function constructToEmbed(user, title = '', description = '', footer = '', color = '#FFB347', ...fields) {
   const embed = new EmbedBuilder()
-    .setThumbnail(user.displayAvatarURL({ format: 'png', dynamic: true, size: 4096 }))
+    .setThumbnail(user)
     .setTitle(title)
     .setDescription(description)
     .setColor(color.replace('skip', '#FFB347'))
