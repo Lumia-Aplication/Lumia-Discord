@@ -1,0 +1,8 @@
+{
+    "scope": {
+      "allowed": ["frontend", "backend", "database"]
+    },
+    "emojiFormat": "code",
+    "commitMessageFormat": "[{{emoji}}] {{message}}"
+  }
+  
