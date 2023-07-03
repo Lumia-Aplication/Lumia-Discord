@@ -2,7 +2,7 @@ const prefix = '.';
 
 module.exports = async (client, message) => {
   const { userService } = client;
-  
+
   if(!message.content.startsWith(prefix) || message.author.bot) return;
   
   const args = message.content.slice(prefix.length).trim().split(/ +/);
@@ -14,7 +14,7 @@ module.exports = async (client, message) => {
   const user = await userService.findOne({ userId: message.author.id });
   if(!user) {
     await userService.create({ userId: message.author.id });
-    return message.reply({ content: 'Você foi adicionado ao banco de dados, execute novamente', ephemeral: true });
+    return message.reply({ content: 'Você foi adicionado ao banco de dados, execute novamente' });
   }
   try {
     command.execute(client, message, args);
