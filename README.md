@@ -1,4 +1,4 @@
-# Nome do Projeto
+# Lumia Discord
 
 Descrição breve do projeto.
 
