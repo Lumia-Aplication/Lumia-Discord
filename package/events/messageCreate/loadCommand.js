@@ -11,11 +11,10 @@ module.exports = async (client, message) => {
   const command = client.commands.get(commandName);
   
   if (!command) return;
+
   const user = await userService.findOne({ userId: message.author.id });
-  if(!user) {
-    await userService.create({ userId: message.author.id });
-    return message.reply({ content: 'Você foi adicionado ao banco de dados, execute novamente' });
-  }
+  if(!user) await userService.create({ userId: message.author.id })
+    
   try {
     command.execute(client, message, args);
   } catch (error) {
