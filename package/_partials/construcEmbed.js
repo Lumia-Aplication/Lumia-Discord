@@ -1,12 +1,16 @@
 const { EmbedBuilder } = require('discord.js');
 
-function constructToEmbed(user, title = '', description = '', footer = '', color = '#FFB347', ...fields) {
+function constructToEmbed(data) {
+  const { user, title, description, footer, ...fields } = data;
+
   const embed = new EmbedBuilder()
-    .setThumbnail(user)
-    .setTitle(title)
-    .setDescription(description)
-    .setColor(color.replace('skip', '#FFB347'))
+    .setTitle(String(title))
+    .setDescription(String(description))
+    .setColor('#FFB347')
     .setTimestamp();
+  if(user) {
+    embed.setThumbnail(user.displayAvatarURL({ format: 'png', dynamic: true, size: 4096 }));
+  }
   if(footer) {
     embed.setFooter({ text: footer });
   }

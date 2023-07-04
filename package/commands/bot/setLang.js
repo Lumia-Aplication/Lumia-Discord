@@ -34,7 +34,7 @@ module.exports = {
 
     const button = constructToButton(buttons);
     const row = constructToActionRow(button);
-    const embed = constructToEmbed(contentEmbed.user, contentEmbed.title, contentEmbed.description);
+    const embed = constructToEmbed(contentEmbed);
   
     const messageChannel = await message.reply({ embeds: [embed], components: [row] });
     
