@@ -1,5 +1,6 @@
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const User = require('../schemas/user');
+const Guild = require('../schemas/guild');
 
 require('dotenv').config();
 require('./database');
@@ -9,12 +10,14 @@ const i18n = require('./i18n');
 
 const UserService = require('../models');
 const userService = new UserService(User);
+const GuildService = require('../models');
+const guildService = new GuildService(Guild);
 
 const token = process.env.TOKEN;
 
 const client = new Client({ 
   intents: [
-    GatewayIntentBits.Guilds , 
+    GatewayIntentBits.Guilds, 
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.AutoModerationConfiguration,
     GatewayIntentBits.AutoModerationExecution,
@@ -38,11 +41,10 @@ client.slashs = new Collection();
 client.alias = new Collection();
 client.t = i18n.t;
 client.userService = userService;
+client.guildService = guildService;
 
 require('../handlers/commands')(client);
 require('../handlers/events')(client);
 require('../handlers/slash')(client);
 
 client.login(token);
-
-
