@@ -1,17 +1,6 @@
 const { EmbedBuilder, ButtonStyle, ActionRowBuilder, ChannelType } = require('discord.js');
 const {messageDelete} = require('../../_partials');
 const { ButtonBuilder } = require('@discordjs/builders');
-
-const embed = new EmbedBuilder()
-  .setColor('#FFB347')
-  .setTitle('Finalização');
-
-const final = new ActionRowBuilder().addComponents( new ButtonBuilder()
-  .setCustomId('Finalizar')
-  .setLabel('Finalize')
-  .setEmoji({id: '1126590491237040221'})
-  .setStyle(ButtonStyle.Primary)
-);
           
 module.exports = async (client, interaction) => {
 
@@ -21,13 +10,13 @@ module.exports = async (client, interaction) => {
     const user = interaction.user;
     
     const thread = await channel.threads.create({
-      name: 'Criado',
+      name: `Ticket-${interaction.user.id}`,
       autoArchiveDuration: 60,
       type: ChannelType.PrivateThread
     });
 
-    const msg2 = await interaction.channel.send(`O topico <#${thread.id}> foi criado!`);
-    messageDelete(msg2, 2000);
+    const confirmThreadCreate = await interaction.channel.send({ content: `O topico <#${thread.id}> foi criado!` });
+    messageDelete(confirmThreadCreate, 5000);
         
     thread.members.add(user);
     interaction.guild.members.cache.forEach((Helper) => {
@@ -49,6 +38,23 @@ module.exports = async (client, interaction) => {
 
       const helperRole = channel.guild.roles.cache.find((role) => role.name === 'Helper');
       if (helperRole) {
+        const final = new ActionRowBuilder().addComponents( new ButtonBuilder()
+          .setCustomId('Finalizar')
+          .setLabel('Fechar')
+          .setEmoji({id: '1126590491237040221'})
+          .setStyle(ButtonStyle.Primary)
+        );
+
+        const embed = new EmbedBuilder()
+          .setColor('#FFB347')
+          .setTitle('Tópico de Ajuda')
+          .setThumbnail(interaction.user.displayAvatarURL({ format: 'png', dynamic: true, size: 4096 }))
+          .setTimestamp()
+          .setFooter({ text: interaction.guild.name })
+          .addFields({ name: 'Nome do Tópico:', value: threadName, inline: false })
+          .addFields({ name: 'Autor do Tópico:', value: interaction.user.username, inline: false })
+          .addFields({ name: 'Cargo selecionado para ajudar:', value: '<@&1126583508157075516>' });
+
         await thread.join(interaction.user.id, { roles: [helperRole.id] });
         await thread.send({content: `<@&${helperRole.id}>`, embeds: [embed], components: [final]});
       } else {
