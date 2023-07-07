@@ -26,21 +26,22 @@ Este diretório contém o código relacionado ao cliente Discord.
 
 Este diretório contém os manipuladores (handlers) para comandos e eventos.
 
-- Commands: Diretório `commands/` contendo os manipuladores de comandos.
-- Events: Diretório `events/` contendo os manipuladores de eventos.
+- Commands: Arquivo `commands.js` contendo os manipuladores de comandos.
+- Events: Arquivo `events.js` contendo os manipuladores de eventos.
+- Slashs: Arquivo `slashs.js` contendo os manipuladores de comandos rápidos.
 
 ### src/locales
 
 Este diretório contém as traduções para diferentes idiomas.
 
-- en: Diretório `en/` contendo as traduções para o idioma inglês.
-- br: Diretório `br/` contendo as traduções para o idioma português brasileiro.
+- en: Arquivo `en.js` contendo as traduções para o idioma inglês.
+- br: Arquivo `br.js` contendo as traduções para o idioma português brasileiro.
 
 ### src/schemas
 
 Este diretório contém os schemas para o Mongoose.
 
-- Schemas: Arquivos contendo os schemas para o Mongoose.
+- Schemas: Diretório contendo os schemas para o Mongoose.
 
 ### src/package
 
