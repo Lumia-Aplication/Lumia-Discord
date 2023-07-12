@@ -1,12 +1,8 @@
 module.exports = async (client, interaction) => {
-    if(interaction.customId === 'EN'){
-        await interaction.deferUpdate()
-        interaction.roles?.add('1122720820356206653')
-        interaction.followUp('a')
-    }
-    if(interaction.customId === 'PT'){
-        await interaction.deferUpdate()
-        interaction.roles?.add('1122720618878599218')
-        interaction.followUp('a')
-    }
-}
+  await interaction.deferUpdate();
+  if (interaction.customId === 'EN'){
+    interaction.roles?.add('1122720820356206653');
+  } else if (interaction.customId === 'PT'){
+    interaction.roles?.add('1122720618878599218');
+  }
+};
