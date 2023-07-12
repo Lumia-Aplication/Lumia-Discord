@@ -1,12 +1,14 @@
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
-const User = require('../schemas/user');
-const Guild = require('../schemas/guild');
-
 require('dotenv').config();
+
+
+const i18n = require('./i18n');
 require('./database');
 require('./alias');
 
-const i18n = require('./i18n');
+const User = require('../schemas/user');
+const Guild = require('../schemas/guild');
+const loadHandlers = require('../_partials');
 
 const UserService = require('../models');
 const userService = new UserService(User);
@@ -42,9 +44,7 @@ client.alias = new Collection();
 client.t = i18n.t;
 client.userService = userService;
 client.guildService = guildService;
+loadHandlers(client);
 
-require('../handlers/commands')(client);
-require('../handlers/events')(client);
-require('../handlers/slash')(client);
 
 client.login(token);
