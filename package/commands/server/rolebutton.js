@@ -7,8 +7,6 @@ module.exports = {
   async execute(client, message) {
 
     const embed = new EmbedBuilder()
-      // .setTitle(`Bem vindo(a) ao Servidor da ${client.user.username}\n
-      // Welcome to the ${client.user.username} Server`)
       .setColor('#FFB347')
       .setDescription(`**Bem vindo(a) ao Servidor da ${client.user.username}**\n**Welcome to the ${client.user.username} Server**\n\n- Selecione sua linguagem para se comunicar no servidor\n- Select your language to communicate on the server`);
 
