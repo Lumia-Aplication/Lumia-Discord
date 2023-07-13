@@ -1,6 +1,6 @@
 const i18next = require('i18next');
 const User = require('@lumia/schemas/user');
-const UserService = require('@lumia/models/index');
+const UserService = require('@lumia/schemas/index');
 
 const userService = new UserService(User);
 
