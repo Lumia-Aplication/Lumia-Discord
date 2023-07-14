@@ -14,4 +14,7 @@ module.exports = {
     success: 'Prefix changed to: `{{prefix}}`',
     error: 'Error changing prefix!'
   },
+  mentionPrefix: {
+    index: '<:lumia:1129194383867133972> My prefix on this guild is: `{{prefix}}`'
+  }
 };

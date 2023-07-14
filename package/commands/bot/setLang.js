@@ -43,19 +43,16 @@ module.exports = {
     const collector = messageChannel.createMessageComponentCollector({ filter, time: 15000 });
 
     collector.on('collect', async (interaction) => {
-      await interaction.deferUpdate();
       messageDelete(messageChannel, 0);
-
+      
       if (interaction.customId == 'br') {
-
+        
         await setLang(interaction.user.id, 'br');
-
-        await interaction.followUp({ content: t('setlang.successChange', { lng: user.lang, setedLang: t('langBR') }), ephemeral: true });
+        interaction.reply({ content: t('setlang.successChange', { lng: user.lang, setedLang: t('langBR') }), ephemeral: true });
       } else if (interaction.customId == 'en') {
 
         await setLang(interaction.user.id, 'en');
-
-        await interaction.followUp({ content: t('setlang.successChange', { lng: user.lang, setedLang: t('langEN') }), ephemeral: true });
+        await interaction.reply({ content: t('setlang.successChange', { lng: user.lang, setedLang: t('langEN') }), ephemeral: true });
       }
     });
 

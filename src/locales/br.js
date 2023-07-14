@@ -14,4 +14,8 @@ module.exports = {
     success: 'Prefixo alterado para: `{{prefix}}`',
     error: 'Erro ao trocar o prefixo!'
   },
+
+  mentionPrefix: {
+    index: '<:lumia:1129194383867133972> Meu prefix neste servidor é: `{{prefix}}`'
+  }
 };
