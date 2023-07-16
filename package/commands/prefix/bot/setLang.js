@@ -1,7 +1,7 @@
 const { ButtonStyle } = require('discord.js');
 
-const { constructToActionRow, constructToButton, constructToEmbed, messageDelete } = require('../../_partials');
-const setLang = require('../../_partials/user/setLang');
+const { constructToActionRow, constructToButton, constructToEmbed, messageDelete } = require('../../../_partials');
+const setLang = require('../../../_partials/user/setLang');
 
 module.exports = {
   name: 'setlang',
