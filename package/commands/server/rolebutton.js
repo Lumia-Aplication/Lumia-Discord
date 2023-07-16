@@ -2,7 +2,7 @@ const { ButtonBuilder } = require('@discordjs/builders');
 const { EmbedBuilder, ActionRowBuilder, ButtonStyle } = require('discord.js');
 
 module.exports = {
-  name: 'test',
+  name: 'rolebutton',
   description: 'Reação',
   async execute(client, message) {
 
@@ -12,12 +12,12 @@ module.exports = {
 
     const buttons = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-        .setCustomId('EN')
+        .setCustomId('guild_en')
         .setLabel('English')
         .setEmoji({ id: '1124894096570466344' })
         .setStyle(ButtonStyle.Danger),
       new ButtonBuilder()
-        .setCustomId('PT')
+        .setCustomId('guild_br')
         .setLabel('Português(BR)')
         .setEmoji({ id: '1124893878554734706' })
         .setStyle(ButtonStyle.Success)
