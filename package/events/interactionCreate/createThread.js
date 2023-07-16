@@ -54,7 +54,6 @@ module.exports = async (client, interaction) => {
         .addFields({ name: 'Autor do Tópico:', value: interaction.user.username, inline: false })
         .addFields({ name: 'Cargo selecionado para ajudar:', value: `<@&${helperRole.id}>` });
 
-      // await thread.join(interaction.user.id, { roles: [helperRole.id] });
       await thread.send({content: `<@&${helperRole.id}>`, embeds: [embed], components: [final]});
 
     });
