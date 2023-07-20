@@ -3,6 +3,7 @@ require('dotenv').config();
 
 require('../modules/database');
 require('../modules/alias');
+
 const configureAtributes = require('./atributes');
 const loadHandlers = require('../_partials');
 
