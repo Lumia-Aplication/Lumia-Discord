@@ -1,5 +1,5 @@
 const { EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, ChannelType, PermissionsBitField, PermissionFlagsBits} = require('discord.js')
-const {messageDelete } = require('../../_partials')
+const {messageDelete } = require('../../../_partials')
 
 
 module.exports = {
