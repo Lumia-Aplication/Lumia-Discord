@@ -6,7 +6,7 @@ const token = process.env.TOKEN;
 
 module.exports = async (client) => {
   const slashCommands = [];
-  const slashCommandsFiles = await glob('package/slashCommands/**/*.js');
+  const slashCommandsFiles = await glob('package/commands/slash/**/*.js');
 
   for (const file of slashCommandsFiles)  {
     const command = require(`../../../${file}`);
@@ -27,6 +27,7 @@ module.exports = async (client) => {
   
     console.log('Successfully reloaded application (/) commands.');
   } catch (error) {
+    
     console.error(error);
   }
 };

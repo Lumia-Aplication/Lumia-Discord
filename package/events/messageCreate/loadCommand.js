@@ -6,9 +6,11 @@ module.exports = async (client, message) => {
   const guild = await guildService.findOne({ guildId: message.guild.id });
   if(!guild) await guildService.create({ guildId: message.guild.id });
 
-  if(!message.content.startsWith(guild.prefix) || message.author.bot) return;
+  const prefix = guild.prefix || '.';
+
+  if(!message.content.startsWith(prefix) || message.author.bot) return;
   
-  const args = message.content.slice(guild.prefix.length).trim().split(/ +/);
+  const args = message.content.slice(prefix.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
   
   const command = client.commands.get(commandName);
