@@ -1,10 +1,8 @@
 const { Client, GatewayIntentBits } = require('discord.js');
 require('dotenv').config();
 
-require('../modules/database');
-require('../modules/alias');
+const { loadHandlers, loadModules } = require('../_partials');
 const configureAtributes = require('./atributes');
-const loadHandlers = require('../_partials');
 
 const token = process.env.TOKEN;
 const intents = [
@@ -29,6 +27,7 @@ const intents = [
 const client = new Client({ intents });
 
 loadHandlers(client);
+loadModules();
 configureAtributes(client);
 
 client.login(token);

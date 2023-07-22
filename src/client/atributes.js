@@ -6,6 +6,7 @@ const User = require('../schemas/user');
 const Guild = require('../schemas/guild');
 const GuildService = require('../schemas');
 const UserService = require('../schemas');
+const { apolloClient } = require('../modules/apollo');
 
 const userService = new UserService(User);
 const guildService = new GuildService(Guild);
@@ -18,6 +19,7 @@ function configureAtributes(client) {
   client.t = i18n.t;
   client.userService = userService;
   client.guildService = guildService;
+  client.apolloClient = apolloClient;
   
 }
 
