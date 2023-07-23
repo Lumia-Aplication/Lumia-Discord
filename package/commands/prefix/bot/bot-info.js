@@ -1,5 +1,7 @@
 /* eslint-disable no-useless-escape */
 const { EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, ChannelType } = require('discord.js');
+
+const { Guild } = require('../../../schemas');
 const {messageDelete } = require('../../../_partials');
 
 module.exports = {
@@ -7,9 +9,15 @@ module.exports = {
   description: 'Vê as informações do bot.',
   aliases: ['info', 'i'],
   async execute(client, message){
-    const { guildService } = client;
+    const { apolloClient } = client;
         
-    const guild = await guildService.findOne({ guildId: message.guild.id });
+    const { data } = await apolloClient.query({
+      query: Guild,
+      variables: {
+        id: message.guild.id
+      }
+    });
+    const { guild } = data;
         
     const row = new ActionRowBuilder().addComponents(new StringSelectMenuBuilder()
       .setCustomId('esc')
