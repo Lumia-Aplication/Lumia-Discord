@@ -1,13 +1,21 @@
+const { Guild, User } = require('../../schemas');
+
 module.exports = async (client, interaction) => {
   if (!interaction.isChatInputCommand()) return;
+  const { apolloClient } = client;
 
-  const { guildService, userService } = client;
-
-  const guild = await guildService.findOne({ guildId: interaction.guild.id });
-  const user = await userService.findOne({ userId: interaction.user.id });
-  
-  if(!guild) await guildService.create({ guildId: interaction.guild.id });
-  if(!user) await userService.create({ userId: interaction.user.id });
+  await apolloClient.query({
+    query: Guild,
+    variables: {
+      id: interaction.guild.id
+    }
+  });
+  await apolloClient.query({
+    query: User,
+    variables: {
+      id: interaction.user.id
+    }
+  });
 
   const command = client.slashs.get(interaction.commandName);
   

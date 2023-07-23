@@ -1,11 +1,15 @@
-
+const { Guild, User } = require('../../schemas');
 
 module.exports = async (client, message) => {
-  const { userService, guildService } = client;
+  const { apolloClient } = client;
 
-  const guild = await guildService.findOne({ guildId: message.guild.id });
-  if(!guild) await guildService.create({ guildId: message.guild.id });
-
+  const { data } = await apolloClient.query({
+    query: Guild,
+    variables: {
+      id: message.guild.id
+    }
+  });
+  const { guild } = data;
   const prefix = guild.prefix || '.';
 
   if(!message.content.startsWith(prefix) || message.author.bot) return;
@@ -17,8 +21,12 @@ module.exports = async (client, message) => {
   
   if (!command) return;
   
-  const user = await userService.findOne({ userId: message.author.id });
-  if(!user) await userService.create({ userId: message.author.id });
+  await apolloClient.query({
+    query: User,
+    variables: {
+      id: message.author.id
+    }
+  });
 
   try {
     command.execute(client, message, args);

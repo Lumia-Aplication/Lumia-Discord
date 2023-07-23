@@ -1,5 +1,7 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
+const { ChangePrefix, User } = require('../../../schemas');
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('prefix')
@@ -9,9 +11,15 @@ module.exports = {
         .setDescription('Sete um novo prefixo ao bot!')
         .setRequired(true)),
   async execute(client, interaction) {
-    const { guildService, userService, t } = client;
+    const { apolloClient, t } = client;
 
-    const user = userService.findOne({ userId: interaction.user.id });
+    const { data } = await apolloClient.query({
+      query: User,
+      variables: {
+        id: interaction.user.id
+      }
+    });
+    const { user } = data;
 
     if(!interaction.guild.members.cache.get(interaction.user.id).permissions.has([[PermissionFlagsBits.Administrator]])) {
       return interaction.reply({ content: t('setPrefix.permission', { lng: user.lang }), ephemeral: true });
@@ -20,7 +28,18 @@ module.exports = {
     const newPrefix = interaction.options.getString('set') ?? t('setPrefix.required', { lng: user.lang });
 
     try {
-      const guildPrefix = await guildService.findOneAndUpdate({ guildId: interaction.guild.id }, { prefix: newPrefix });
+      const input = {
+        id: interaction.user.id,
+        prefix: newPrefix,
+      };
+
+      const dataPrefix = await apolloClient.mutate({
+        mutation: ChangePrefix,
+        variables: {
+          input
+        }
+      });
+      const guildPrefix = dataPrefix.data.ChangePrefix;
 
       await interaction.reply(t('setPrefix.success', { lng: user.lang, prefix: guildPrefix.prefix })); 
     } catch(e) {

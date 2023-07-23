@@ -1,14 +1,28 @@
 const { messageDelete } = require('../../_partials');
+const { Guild, User } = require('../../schemas');
 
 module.exports = async (client, message) => {
   
   if(message.content === `<@${client.user.id}>` || message.content === `<@!${client.user.id}>`) {
     
-    const { userService, guildService, t } = client;
-    const { prefix } = await guildService.findOne({ guildId: message.guild.id });
-    const user = await userService.findOne({ userId: message.author.id });
+    const { t, apolloClient } = client;
+    const guildData = await apolloClient.query({
+      query: Guild,
+      variables: {
+        id: message.guild.id
+      }
+    });
+    const userData = await apolloClient.query({
+      query: User,
+      variables: {
+        id: message.author.id
+      }
+    });
 
-    const msg = await message.reply(t('mentionPrefix.index', { lng: user.lang, prefix }));
+    const lng = userData.data.user.lang;
+    const prefix = guildData.data.guild.prefix;
+
+    const msg = await message.reply(t('mentionPrefix.index', { lng, prefix }));
     messageDelete(msg, 8000);
   }
 };

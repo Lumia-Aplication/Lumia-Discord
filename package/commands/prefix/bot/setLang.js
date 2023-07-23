@@ -1,5 +1,6 @@
 const { ButtonStyle } = require('discord.js');
 
+const { User } = require('../../../schemas');
 const { constructToActionRow, constructToButton, constructToEmbed, messageDelete } = require('../../../_partials');
 const setLang = require('../../../_partials/user/setLang');
 
@@ -7,9 +8,15 @@ module.exports = {
   name: 'setlang',
   description: 'Setar uma linguagem ao usuario',
   async execute(client, message) {
-    const { t, userService } = client;
+    const { t, apolloClient } = client;
 
-    const user = await userService.findOne({ userId: message.author.id });
+    const { data } = await apolloClient.query({
+      query: User,
+      variables: {
+        id: message.author.id
+      }
+    });
+    const { user } = data;
 
     const contentEmbed = {
       title: t('setlang.title', { lng: user.lang, username: message.author.username }),
