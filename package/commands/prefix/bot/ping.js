@@ -2,7 +2,10 @@ const { User } = require('../../../schemas');
 
 module.exports = {
   name: 'ping',
-  description: 'Descrição do comando',
+  aliases: ['pong', 'latency', 'latencia'],
+  category: 'Bot',
+  use: '<prefix>ping',
+  description: 'command.description.ping',
   async execute(client, message) {
     const { t, apolloClient } = client;
 

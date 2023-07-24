@@ -6,7 +6,10 @@ const setLang = require('../../../_partials/user/setLang');
 
 module.exports = {
   name: 'setlang',
-  description: 'Setar uma linguagem ao usuario',
+  category: 'Bot',
+  aliases: ['changelang', 'setlanguage'],
+  use: '<prefix>setlang',
+  description: 'command.description.setLang',
   async execute(client, message) {
     const { t, apolloClient } = client;
 
@@ -18,11 +21,13 @@ module.exports = {
     });
     const { user } = data;
 
-    const contentEmbed = {
-      title: t('setlang.title', { lng: user.lang, username: message.author.username }),
-      description: t('setlang.description', { lng: user.lang, langDefault: t('langBR', { lng: user.lang }), userLang: user.lang.replace('en', t('langEN', { lng: user.lang })).replace('br', t('langBR', { lng: user.lang })) }),
-      user: message.author
-    };
+    const contentEmbed = [    
+      {
+        title: t('setlang.title', { lng: user.lang, username: message.author.username }),
+        description: t('setlang.description', { lng: user.lang, langDefault: t('langBR', { lng: user.lang }), userLang: user.lang.replace('en', t('langEN', { lng: user.lang })).replace('br', t('langBR', { lng: user.lang })) }),
+        user: message.author
+      }
+    ];
 
     const buttons = [
       {
@@ -43,7 +48,7 @@ module.exports = {
     const row = constructToActionRow(button);
     const embed = constructToEmbed(contentEmbed);
   
-    const messageChannel = await message.reply({ embeds: [embed], components: [row] });
+    const messageChannel = await message.reply({ embeds: [embed[0]], components: [row] });
     
     const filter = (interaction) => interaction.isButton() && interaction.user.id === message.author.id;
 

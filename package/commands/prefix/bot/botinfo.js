@@ -7,8 +7,10 @@ const { Guild } = require('../../../schemas');
 
 module.exports = {
   name: 'botinfo',
-  description: 'Vê as informações do bot.',
+  description: 'command.description.botinfo',
   aliases: ['binfo', 'i'],
+  use: '<prefix>botinfo',
+  category: 'Bot',
   async execute(client, message) {
 
     const { apolloClient } = client;
