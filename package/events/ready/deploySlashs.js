@@ -5,6 +5,7 @@ require('dotenv').config();
 const token = process.env.TOKEN;
 
 module.exports = async (client) => {
+
   const slashCommands = [];
   const slashCommandsFiles = await glob('package/commands/slash/**/*.js');
 

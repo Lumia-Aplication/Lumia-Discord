@@ -1,5 +1,5 @@
 const { Guild, User } = require('./Query');
-const { ChangeLang, ChangePrefix, Usages } = require('./Mutation');
+const { ChangeLang, ChangePrefix, Usages, ReceiveCommands } = require('./Mutation');
 
 
 module.exports = {
@@ -7,5 +7,6 @@ module.exports = {
   User,
   ChangeLang,
   ChangePrefix,
+  ReceiveCommands,
   Usages,
 };

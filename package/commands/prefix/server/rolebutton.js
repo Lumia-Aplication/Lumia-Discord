@@ -4,6 +4,7 @@ const { EmbedBuilder, ActionRowBuilder, ButtonStyle } = require('discord.js');
 module.exports = {
   name: 'rolebutton',
   description: 'Reação',
+  private: true,
   async execute(client, message) {
 
     const embed = new EmbedBuilder()

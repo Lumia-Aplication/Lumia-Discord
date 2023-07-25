@@ -4,6 +4,7 @@ const { EmbedBuilder, ButtonStyle } = require('discord.js');
 module.exports = {
   name: 'embedhelper',
   description: 'Descrição',
+  private: true,
   async execute(client, message) {
     //if(client.users.id !== '846047927700946944') return;
     
